@@ -4,10 +4,14 @@ import android.app.Application;
 
 import com.example.lammy.androidutils.base.Constants;
 import com.example.lammy.androidutils.exception.CrashHandler;
+import com.example.lammy.androidutils.log.LogUtil;
 import com.lzy.okgo.OkGo;
 
 /**
  * Created by lammy on 2018/4/19.
+ *
+ * Application 再程序创建时候创建，需要再清单文件中配置，如本应用再application中添加]
+ *  android:name=".applictaion.MyApplication"
  */
 
 public class MyApplication extends Application {
@@ -31,6 +35,7 @@ public class MyApplication extends Application {
 
     @Override
     public void onCreate() {
+        LogUtil.e("application is create !");
         super.onCreate();
         mApplication = this;
         registerUncaughtExceptionHandler();

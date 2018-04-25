@@ -7,11 +7,14 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.lammy.androidutils.File.FileUtil;
 import com.example.lammy.androidutils.R;
 import com.example.lammy.androidutils.base.Constants;
 import com.example.lammy.androidutils.log.LogUtil;
 import com.lzy.okserver.download.DownloadInfo;
 import com.lzy.okserver.listener.DownloadListener;
+
+import java.io.File;
 
 public class DownloadActivity extends AppCompatActivity {
 
@@ -27,15 +30,14 @@ public class DownloadActivity extends AppCompatActivity {
     public void download(View view){
         LogUtil.e("download ...");
         HttpUtil httpUtil =  HttpUtil.getInstance();
+        FileUtil.getSdSunFolderPath("lammy-utils");
         httpUtil.doDownload(HttpUtil.url_image, Constants.lammy_utils, new DownloadListener() {
             @Override
             public void onProgress(DownloadInfo downloadInfo) {
-
             }
 
             @Override
             public void onFinish(DownloadInfo downloadInfo) {
-
                final String imagePath = Constants.lammy_utils + downloadInfo.getFileName();
                 runOnUiThread(new Runnable() {
                     @Override

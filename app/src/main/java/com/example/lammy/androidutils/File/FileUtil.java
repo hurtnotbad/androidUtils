@@ -20,11 +20,13 @@ public class FileUtil {
     public static String getSdSunFolderPath(String subDir) {
         String sdPath = getSDPath();
         if (sdPath == null) {
+            LogUtil.e("sd目录 is null");
             return null;
         } else {
             String folderPath = sdPath + "/" + subDir;
             File destDir = new File(folderPath);
             if (!destDir.exists()) {
+                LogUtil.e("创建目录");
                 destDir.mkdirs();
             }
             return folderPath;
