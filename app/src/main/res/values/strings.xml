@@ -1,7 +1,11 @@
 <resources>
     <string name="app_name">AndroidUtils</string>
+    <string name="download">下载</string>
+
+
+
     <string name="function_share">分享</string>
-    <string name="function_image">图像</string>
+    <string name="function_download">下载图片</string>
 
 
 </resources>

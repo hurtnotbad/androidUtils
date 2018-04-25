@@ -36,7 +36,7 @@ public class HttpUtil {
     public static final String url_image = url_host + "lyf.jpg";
 
     private static HttpUtil mHttpUtil;
-    private static Context mContext = MyApplication.getInstance();
+    private static Context mContext;
 
     public static HttpUtil getInstance() {
         if(mHttpUtil!=null){
@@ -47,6 +47,7 @@ public class HttpUtil {
                 mHttpUtil = new HttpUtil();
             }
         }
+        mContext = MyApplication.getInstance();
         return mHttpUtil;
     }
 

@@ -1,4 +1,4 @@
-package com.example.lammy.androidutils.activity;
+package com.example.lammy.androidutils.appIn;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,7 +10,9 @@ import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+
 import com.example.lammy.androidutils.R;
+import com.example.lammy.androidutils.net.DownloadActivity;
 import com.example.lammy.androidutils.share.ShareActivity;
 
 
@@ -28,7 +30,7 @@ public class FunctionAdapter extends BaseAdapter {
         Resources resources = mContext.getResources();
         functions = new String[]{
                 resources.getString(R.string.function_share),
-                resources.getString(R.string.function_image)
+                resources.getString(R.string.function_download)
         };
     }
 
@@ -74,8 +76,8 @@ public class FunctionAdapter extends BaseAdapter {
             openShare();
             return;
         }
-        if(functionName.equals(resources.getString(R.string.function_image))){
-            openShare();
+        if(functionName.equals(resources.getString(R.string.function_download))){
+            openHttp();
             return;
         }
 
@@ -85,6 +87,11 @@ public class FunctionAdapter extends BaseAdapter {
     public void openShare (){
         Intent shareIntent = new Intent(mContext , ShareActivity.class);
         mContext.startActivity(shareIntent);
+    }
+
+    public void openHttp(){
+        Intent downloadIntent = new Intent(mContext , DownloadActivity.class);
+        mContext.startActivity(downloadIntent);
     }
 
 }
