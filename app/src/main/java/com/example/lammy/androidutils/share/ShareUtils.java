@@ -44,6 +44,7 @@ public class ShareUtils {
      * @param imagePath 图片位置（调用系统分享功能，不需要申请sd卡权限）
      */
     public static void shareImageFromSdCard(Context context, String activityTitle, String msgText, String imagePath ){
+
         // 启动分享发送的属性  
         Intent intent = new Intent(Intent.ACTION_SEND);
         //intent.setPackage("com.tencent.mm");
@@ -52,9 +53,11 @@ public class ShareUtils {
             intent.putExtra(Intent.EXTRA_TEXT, msgText);
         }else {
             File file = new File(imagePath);
+
             if(file != null && file.exists() && file.isFile()){
                 intent.setType("image/*");
-                Uri uri = Uri.fromFile(file);
+                Uri uri = FileProvider.getUriForFile(context, "lammy.file.provider", file);
+//                Uri uri = Uri.fromFile(file);
                 intent.putExtra(Intent.EXTRA_STREAM, uri);
 
             }else {

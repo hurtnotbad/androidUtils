@@ -7,9 +7,11 @@ import android.widget.AdapterView;
 import android.widget.GridView;
 
 import com.example.lammy.androidutils.R;
+import com.example.lammy.androidutils.permission.PermissionActivity;
+import com.example.lammy.androidutils.permission.Permissions;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends PermissionActivity {
     private GridView mGridView;
 
     @Override

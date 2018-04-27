@@ -4,7 +4,6 @@ import android.app.Application;
 
 import com.example.lammy.androidutils.base.Constants;
 import com.example.lammy.androidutils.exception.CrashHandler;
-import com.example.lammy.androidutils.log.LogUtil;
 import com.lzy.okgo.OkGo;
 
 /**
@@ -18,14 +17,6 @@ public class MyApplication extends Application {
     private static MyApplication mApplication = null;
 
     public static MyApplication getInstance(){
-//        if(mApplication != null){
-//            return mApplication ;
-//        }
-//        synchronized (MyApplication.class){
-//            if(mApplication == null){
-//                mApplication = new MyApplication();
-//            }
-//        }
         return mApplication;
     }
 
@@ -35,7 +26,6 @@ public class MyApplication extends Application {
 
     @Override
     public void onCreate() {
-        LogUtil.e("application is create !");
         super.onCreate();
         mApplication = this;
         registerUncaughtExceptionHandler();

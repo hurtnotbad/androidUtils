@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 
 import com.example.lammy.androidutils.R;
+import com.example.lammy.androidutils.camera.CameraActivity;
+import com.example.lammy.androidutils.camera.CameraView;
 import com.example.lammy.androidutils.net.DownloadActivity;
 import com.example.lammy.androidutils.share.ShareActivity;
 
@@ -30,7 +32,8 @@ public class FunctionAdapter extends BaseAdapter {
         Resources resources = mContext.getResources();
         functions = new String[]{
                 resources.getString(R.string.function_share),
-                resources.getString(R.string.function_download)
+                resources.getString(R.string.function_download),
+                resources.getString(R.string.function_camera)
         };
     }
 
@@ -80,6 +83,10 @@ public class FunctionAdapter extends BaseAdapter {
             openHttp();
             return;
         }
+        if(functionName.equals(resources.getString(R.string.function_camera))){
+            openCamera();
+            return;
+        }
 
 
     }
@@ -91,6 +98,11 @@ public class FunctionAdapter extends BaseAdapter {
 
     public void openHttp(){
         Intent downloadIntent = new Intent(mContext , DownloadActivity.class);
+        mContext.startActivity(downloadIntent);
+    }
+
+    public void openCamera(){
+        Intent downloadIntent = new Intent(mContext , CameraActivity.class);
         mContext.startActivity(downloadIntent);
     }
 
