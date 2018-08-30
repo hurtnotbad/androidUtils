@@ -1,21 +1,16 @@
 package com.example.lammy.androidutils.permission;
 
 import android.Manifest;
-import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.example.lammy.androidutils.appIn.MainActivity;
-import com.example.lammy.androidutils.camera.CameraActivity;
 
-import java.security.Permission;
 
-public class PermissionActivity extends AppCompatActivity {
+public class PermissionActivity extends AppCompatActivity implements PermissionGrandListener{
 
     private String permissions[] = new String[]{
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
@@ -31,6 +26,7 @@ public class PermissionActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, permissions, 1);
         }
     }
+
 
 
     private boolean checkPermissionGrant(){
@@ -52,9 +48,37 @@ public class PermissionActivity extends AppCompatActivity {
         if(requestCode == REQUEST_CODE) {
             for(int result:grantResults){
                 if(result == PackageManager.PERMISSION_DENIED){
-                    finish();
+                   onGrandFailed();
+                    return;
                 }
             }
+            onGrandSuccess();
         }
+
+    }
+
+    private String[] getRequestPermissions(){
+      return   setRequestPermission();
+    }
+
+    @Override
+    public String[] setRequestPermission() {
+        return new String[0];
+    }
+
+    @Override
+    public void onGrandSuccess() {
+
+    }
+
+    @Override
+    public void onGrandFailed() {
+
     }
 }
+
+// interface PermissionGrandListener{
+//    String[] setRequestPermission();
+//    void onGrandSuccess();
+//    void onGrandFailed();
+//}

@@ -149,7 +149,7 @@ public class CameraView extends AutoFitTextureView {
                 setAspectRatio(
                         mPreViewSize.getHeight(), mPreViewSize.getWidth());
                 mImageReader = ImageReader.newInstance(mPreViewSize.getWidth(), mPreViewSize.getHeight(),
-                        ImageFormat.JPEG, 2);
+                        ImageFormat.YUV_420_888, 2);
                 mImageReader.setOnImageAvailableListener(onImageAvailableListener, null);
 
                 mCameraDevice = camera;
@@ -399,43 +399,31 @@ public class CameraView extends AutoFitTextureView {
         @Override
         public void onImageAvailable(ImageReader reader) {
             Log.d(TAG, "onImageAvailable .............");
+            Log.e(TAG, "onImageAvailable .............");
             try {
+
                 Image img = reader.acquireLatestImage();
                 ByteBuffer buffer = img.getPlanes()[0].getBuffer();
                 byte[] buff = new byte[buffer.remaining()];
                 buffer.get(buff);
                 final Bitmap bitmap = BitmapFactory.decodeByteArray(buff, 0, buff.length);
 
-                long t1 = System.currentTimeMillis();
 
-//                Matrix matrix = new Matrix();
-//                if(mCameraDevice.getId().equals( 0+""))
-//                    matrix.postRotate(90);
-//                if(mCameraDevice.getId().equals( 1+""))
-//                    matrix.postRotate(-90);
-//                Bitmap bitmap2 = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(), bitmap.getHeight(), matrix, true);
 
-                int angle = 0;
-                if(mCameraDevice.getId().equals( "0")) {
-                    angle = 90;
-                }else if(mCameraDevice.getId().equals( "1")) {
-                    angle = -90;
-                }
-                Bitmap bitmap2 = BitmapUtil.rotateBitmap(bitmap , angle);
-                bitmap.recycle();
-                LogUtil.e("cccc " , "time = " + (System.currentTimeMillis() - t1));
-                if (takeCaptureCallback != null) {
-                    takeCaptureCallback.takeCaptureSuccess(bitmap2);
-                }
 
-////                final String filePath = savePath+ File.separator + UUID.randomUUID().toString() + ".jpg";
-//                final File f = new File(getContext().getExternalFilesDir(null).getAbsolutePath() + "print/" + UUID.randomUUID().toString() + ".jpg");
-//
-//                if(!f.getParentFile().exists()){
-//                    f.getParentFile().mkdirs();
+//                int angle = 0;
+//                if(mCameraDevice.getId().equals( "0")) {
+//                    angle = 90;
+//                }else if(mCameraDevice.getId().equals( "1")) {
+//                    angle = -90;
 //                }
-
-//                saveBitmapToSD(bitmap , f.getAbsolutePath());
+//                Bitmap bitmap2 = BitmapUtil.rotateBitmap(bitmap , angle);
+//                bitmap.recycle();
+//                LogUtil.e("cccc " , "time = " + (System.currentTimeMillis() - t1));
+//                if (takeCaptureCallback != null) {
+//                    takeCaptureCallback.takeCaptureSuccess(bitmap2);
+//                }
+//
 
             } catch (Exception e) {
 
@@ -535,11 +523,7 @@ public class CameraView extends AutoFitTextureView {
         return available == null ? false : available;
     }
 
-//    int FLASH_ON = 1;
-//    int FLASH_OFF = 0;
-//    int FLASH_AUTO = 2;
-//    int FLASH_NONE = 3;
-//    int FLASH_ON_ALWAYS = 4;
+
 
     private int curFlashMode = FLASH_OFF;
     public void setFlash(int flashMode){
@@ -591,52 +575,6 @@ public int getCurrentFlashMode(){
 
         if(mCameraSession == null)
             return;
-//        try {
-//            mCameraSession.stopRepeating();
-//
-////            CaptureRequest.Builder captureBuilder =
-////                    mCameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE);
-////            captureBuilder.addTarget(mImageReader.getSurface());
-////            captureBuilder.addTarget(mSurface);
-////            mPreViewBuilder = captureBuilder;
-//            mPreViewBuilder.set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_USE_SCENE_MODE);
-//            mPreViewBuilder.set(CaptureRequest.CONTROL_SCENE_MODE, CaptureRequest.CONTROL_SCENE_MODE_FACE_PRIORITY);
-//            mPreViewBuilder.set(CaptureRequest.STATISTICS_FACE_DETECT_MODE, CaptureRequest.STATISTICS_FACE_DETECT_MODE_SIMPLE);
-//            mPreViewBuilder.set(CaptureRequest.CONTROL_AE_MODE, CameraMetadata.CONTROL_AE_MODE_ON);
-//            mPreViewBuilder.set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE);
-//
-//            if(curFlashMode == FLASH_OFF) {
-//                mPreViewBuilder.set(CaptureRequest.FLASH_MODE, CameraMetadata.FLASH_MODE_OFF);
-//            }else if(curFlashMode == FLASH_AUTO)
-//            {
-//                mPreViewBuilder.set(CaptureRequest.CONTROL_AE_MODE, CameraMetadata.CONTROL_AE_MODE_ON_AUTO_FLASH);
-//            }else if(curFlashMode == FLASH_ON) {
-//                mPreViewBuilder.set(CaptureRequest.FLASH_MODE, CameraMetadata.FLASH_MODE_TORCH);
-//            }
-//
-//            if (faceRect != null) {
-//                focusState = FOCUS_FACE_STATE;
-//                mPreViewBuilder.set(CaptureRequest.CONTROL_AF_REGIONS,
-//                        new MeteringRectangle[]{
-//                                new MeteringRectangle(faceRect, MeteringRectangle.METERING_WEIGHT_MAX)
-//                        });
-//                mPreViewBuilder.set(CaptureRequest.CONTROL_AE_REGIONS,
-//                        new MeteringRectangle[]{
-//                                new MeteringRectangle(faceRect, MeteringRectangle.METERING_WEIGHT_MAX)
-//                        });
-//            }
-//
-//            mCameraSession.setRepeatingRequest(mPreViewBuilder.build(), null, null);
-//        }catch (CameraAccessException e) {
-//            e.printStackTrace();
-//        }
-
-
-//        try {
-//            Thread.sleep(100);
-//        } catch (InterruptedException e) {
-//            e.printStackTrace();
-//        }
 
         LogUtil.e("takePhoto" , "takePhoto,...............");
         this.savePath = savePath;
@@ -679,17 +617,6 @@ public int getCurrentFlashMode(){
         }
 
         try {
-//            if(curFlashMode != FLASH_ON_ALWAYS)
-//            {
-//                curFlashMode = FLASH_OFF;
-//            }
-
-
-//            CaptureRequest.Builder captureBuilder =
-//                    mCameraDevice.createCaptureRequest(CameraDevice.TEMPLATE_STILL_CAPTURE);
-//            captureBuilder.addTarget(mSurface);
-//            mPreViewBuilder.set(CaptureRequest.FLASH_MODE, CameraMetadata.FLASH_MODE_OFF);
-//            mPreViewBuilder = captureBuilder;
             mPreViewBuilder.set(CaptureRequest.FLASH_MODE, CameraMetadata.FLASH_MODE_OFF);
             mPreViewBuilder.set(CaptureRequest.CONTROL_MODE, CameraMetadata.CONTROL_MODE_USE_SCENE_MODE);
             mPreViewBuilder.set(CaptureRequest.CONTROL_SCENE_MODE, CaptureRequest.CONTROL_SCENE_MODE_FACE_PRIORITY);
@@ -697,14 +624,6 @@ public int getCurrentFlashMode(){
             mPreViewBuilder.set(CaptureRequest.CONTROL_AE_MODE, CameraMetadata.CONTROL_AE_MODE_ON);
             mPreViewBuilder.set(CaptureRequest.CONTROL_AF_MODE, CaptureRequest.CONTROL_AF_MODE_CONTINUOUS_PICTURE);
 
-//            if(curFlashMode == FLASH_OFF) {
-//                mPreViewBuilder.set(CaptureRequest.FLASH_MODE, CameraMetadata.FLASH_MODE_OFF);
-//            }else if(curFlashMode == FLASH_AUTO)
-//            {
-//                mPreViewBuilder.set(CaptureRequest.FLASH_MODE, CameraMetadata.FLASH_MODE_SINGLE);
-//            }else if(curFlashMode == FLASH_ON_ALWAYS) {
-//                mPreViewBuilder.set(CaptureRequest.FLASH_MODE, CameraMetadata.FLASH_MODE_TORCH);
-//            }
 
             if (faceRect != null) {
                 focusState = FOCUS_FACE_STATE;

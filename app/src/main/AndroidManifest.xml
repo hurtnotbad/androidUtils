@@ -37,7 +37,9 @@
         </provider>
 
         <activity android:name=".permission.PermissionActivity" />
-        <activity android:name=".camera.CameraActivity"></activity>
+        <activity android:name=".camera.CameraActivity"
+            android:theme="@style/Theme.AppCompat.NoActionBar"
+            ></activity>
     </application>
 
 </manifest>
