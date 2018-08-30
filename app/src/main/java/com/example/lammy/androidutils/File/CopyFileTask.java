@@ -14,7 +14,7 @@ public class CopyFileTask extends AsyncTask<Void,Void,Void> {
 
 
     // copy file task file
-    public   static String cube_path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/cube/8.cube";
+    public   static String cube_path = Environment.getExternalStorageDirectory().getAbsolutePath()+"/lammy/lammy.jpg";
 
     private Context context;
     private TaskListener taskListener;
@@ -78,3 +78,4 @@ public class CopyFileTask extends AsyncTask<Void,Void,Void> {
         void onTaskDone();
     }
 }
+
