@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.example.lammy.androidutils.R;
 import com.example.lammy.androidutils.camera.CameraActivity;
-import com.example.lammy.androidutils.camera.CameraView;
+
 import com.example.lammy.androidutils.net.DownloadActivity;
 import com.example.lammy.androidutils.share.ShareActivity;
 
