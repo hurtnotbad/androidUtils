@@ -38,6 +38,7 @@ import android.view.WindowManager;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.lammy.androidutils.Bitmap.BitmapUtil;
+import com.example.lammy.androidutils.Bitmap.ImageTypeUtils;
 import com.example.lammy.androidutils.log.LogUtil;
 import org.opencv.android.Utils;
 import org.opencv.core.CvType;
@@ -299,11 +300,11 @@ public class lammyCamera2 extends AutoFitTextureView {
             mPreViewSize =chooseBestPreviewSize(mCameraCharacteristics);
 
             /*****   获得所有的预览size      ***/
-//            StreamConfigurationMap map = mCameraCharacteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
-//            Size [] sizes = map.getOutputSizes(ImageFormat.YUV_420_888);
-//            for(int i = 0 ; i < sizes.length ; i++){
-//                LogUtil.e("相机的 "+ i+ "  size："+sizes[i] );
-//            }
+            StreamConfigurationMap map = mCameraCharacteristics.get(CameraCharacteristics.SCALER_STREAM_CONFIGURATION_MAP);
+            Size [] sizes = map.getOutputSizes(ImageFormat.YUV_420_888);
+            for(int i = 0 ; i < sizes.length ; i++){
+                LogUtil.e("相机的 "+ i+ "  size："+sizes[i] );
+            }
 
             LogUtil.e("相机的size："+mPreViewSize + "");//1440x1080
             setAspectRatio(mPreViewSize.getHeight(), mPreViewSize.getWidth());
@@ -374,7 +375,7 @@ public class lammyCamera2 extends AutoFitTextureView {
             }
 //            Log.e(TAG, "onImageAvailable ............. start");
 
-            Mat mYuvMat = BitmapUtil.imageToMat(mImage);
+            Mat mYuvMat = ImageTypeUtils.cameraYUV_420_888ToMat(mImage);
             Mat rgbMat = new Mat(mImage.getHeight(), mImage.getWidth(), CvType.CV_8UC3);
             Imgproc.cvtColor(mYuvMat, rgbMat, Imgproc.COLOR_YUV2RGB_I420);
             /*****************************更新drawBitmap***********************/
@@ -418,7 +419,6 @@ public class lammyCamera2 extends AutoFitTextureView {
                         isMultipleTakePhoto = false;
                     }
                 }
-
 
 //            Log.e(TAG, "onImageAvailable .............end");
             mImage.close();

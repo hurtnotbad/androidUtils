@@ -49,7 +49,7 @@ public class CameraActivity extends AppCompatActivity {
     }
     public void takePhoto(View view){
 //        camera_view.takePhoto(true, Environment.getExternalStorageDirectory().getAbsolutePath()+"/alammy/", 1);
-        camera_view.takePhoto(true,Environment.getExternalStorageDirectory().getAbsolutePath()+"/alammy/");
+        camera_view.takePhoto(true,Environment.getExternalStorageDirectory().getAbsolutePath()+"/lammy/");
     }
 
     public void setFlashMode(View view){
